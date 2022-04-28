@@ -6,10 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use function Symfony\Component\String\u;
+// use Twig\Environment;
 
 class MixedTapeController extends AbstractController{
     // #[Route('/home')]
-    #[Route('/')]
+    // #[Route('/')]
+    #[Route('/', name:'app_homepage')]
+    // public function homepage(Environment $twig): Response
     public function homepage(): Response
     {
 
@@ -33,12 +36,16 @@ $tracks =[
         // return new Response("Pink Floyd --- Another Brick In the wall");
 
 return $this->render('mixed/homepage.html.twig',['title'=>'mixed 90s music','tracks'=>$tracks,]);
-
+// $html= $twig->render('mixed/homepage.html.twig',['title'=>'mixed 90s music','tracks'=>$tracks,]);
+// return new Response ($html);
     }
 
 
     // #[Route('/browse/')]
-    #[Route('/browse/{slug}')]
+    #[Route('/browse/{slug}', name: 'app_browse')]
+    // #[Route('/browse/{slug}')]
+
+
     // public function browse(): Response
     // public function browse(string $slug): Response --- "browse" will have error
     public function browse(string $slug=null): Response
@@ -57,6 +64,8 @@ $genre = $slug ? u(str_replace('-','',$slug))->title(true):null;
         // $title =u(str_replace('-','',$slug))->title(true);
     //   return new Response('Genre: '.$title);
 return $this->render('mixed/browse.html.twig', ['genre'=>$genre]);
+
+// #[Route('/browse/{slug}', name: $genre)]
 
     //   return new Response('Genre: '.$slug);
         // die("Mixed-Tipes:Surely not fancy looking page");
